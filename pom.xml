@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org</groupId>
+  <artifactId>walkmod-foo-plugin</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <repositories>
+		<repository>
+			<id>maven-java-formatter-plugin-github-fork</id>
+			<name>Maven2 Java Formatter Plugin (GitHub Fork) Repository</name>
+			<url>https://raw.github.com/benalexau/maven-java-formatter-plugin/master/releases/
+			</url>
+		</repository>
+		<repository>
+			<id>maven-walkmod-repo</id>
+			<name>Maven2 Walkmod Repository</name>
+			<url>http://www.walkmod.com/
+			</url>
+		</repository>
+	</repositories>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.walkmod</groupId>
+  		<artifactId>walkmod</artifactId>
+  		<version>1.0</version>
+  	</dependency>
+  </dependencies>
+</project>
