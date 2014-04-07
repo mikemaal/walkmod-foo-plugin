@@ -4,7 +4,7 @@
 
 <beans>
 
-	<bean id="org:walkmod-foo-plugin:hello-visitor" class="org.foo.visitors.MyFirstPlugin"/>
+	<bean id="org.walkmod:walkmod-foo-plugin:hello-visitor" class="org.foo.visitors.MyFirstPlugin"/>
 
 
 </beans>

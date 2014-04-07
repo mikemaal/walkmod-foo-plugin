@@ -13,10 +13,10 @@
  
  You should have received a copy of the GNU Lesser General Public License
  along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
-package org.foo.visitors;
+package org.walkmod.foo.visitors;
 
-import org.walkmod.lang.ast.CompilationUnit;
-import org.walkmod.visitors.VisitorSupport;
+import org.walkmod.javalang.ast.CompilationUnit;
+import org.walkmod.javalang.visitors.VisitorSupport;
 import org.walkmod.walkers.VisitorContext;
 
 public class MyFirstPlugin extends VisitorSupport<VisitorContext> {

@@ -1,11 +1,12 @@
-package org.foo.visitors;
+package org.walkmod.foo.visitors;
 
 import java.io.File;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.walkmod.lang.ASTManager;
-import org.walkmod.lang.ast.CompilationUnit;
+import org.walkmod.foo.visitors.MyFirstPlugin;
+import org.walkmod.javalang.ASTManager;
+import org.walkmod.javalang.ast.CompilationUnit;
 import org.walkmod.walkers.VisitorContext;
 
 public class MyFirstPluginTest {
