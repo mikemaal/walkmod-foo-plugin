@@ -2,6 +2,8 @@ walkmod-foo-plugin
 ==================
 Raquel Pau <raquelpau@gmail.com>
 
+image:https://travis-ci.org/rpau/walkmod-foo-plugin.svg?branch=master["Build Status", link="https://travis-ci.org/rpau/walkmod-foo-plugin"]
+
 This project is an example of a http://www.walkmod.com[walkmod] plugin. 
 
 == Contributing
