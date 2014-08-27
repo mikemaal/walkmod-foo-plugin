@@ -8,6 +8,6 @@ This project is an example of a http://www.walkmod.com[walkmod] plugin.
 
 If you want to hack on this, fork it, improve it and send me a pull request.
 
-To get started using it, just clone it and call mvn install. 
+To get started using it, just clone it and call mvn install.  
 
 
