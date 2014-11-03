@@ -4,7 +4,8 @@
 
 <beans>
 
-	<bean id="org.walkmod:walkmod-foo-plugin:hello-visitor" class="org.foo.visitors.MyFirstPlugin"/>
-
+	<bean
+		id="edu.upc.dama:walkmod-serializable-plugin:add-serializable-implementation"
+		class="edu.upc.dama.walkmod.serializable.visitors.AddSerializableImplementation" />
 
 </beans>
