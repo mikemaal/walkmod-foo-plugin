@@ -1,10 +1,8 @@
-walkmod-foo-plugin
+walkmod-serializable-plugin
 ==================
-Raquel Pau <raquelpau@gmail.com>
+Miguel Angel Aguila <maguila@ac.upc.edu>
 
-image:https://travis-ci.org/rpau/walkmod-foo-plugin.svg?branch=master["Build Status", link="https://travis-ci.org/rpau/walkmod-foo-plugin"]
-
-This project is an example of a http://www.walkmod.com[walkmod] plugin. 
+This project is a plugin to add the serializable implementation in all java classes using http://www.walkmod.com[walkmod] plugin. 
 
 == Contributing
 
