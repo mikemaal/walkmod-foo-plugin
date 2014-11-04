@@ -101,5 +101,23 @@ public class AddSerializableImplementationTest {
 		coi = type.getImplements().get(0);
 		assertEquals(coi.toString(),"java.io.Serializable");
 		
+		f = new File("src/test/resources/sourceConflict5Example.txt");
+		cu = ASTManager.parse(f);
+		Assert.assertNotNull(cu);
+		
+		visitor = new AddSerializableImplementation();
+		visitor.visit(cu, new VisitorContext());
+		
+		numImports = cu.getImports().size();
+		assertEquals(numImports,1);
+		
+		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
+		numImplements = type.getImplements().size();
+		assertEquals(numImplements,1);
+		
+		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
+		coi = type.getImplements().get(0);
+		assertEquals(coi.toString(),"Serializable");
+		
 	}
 }

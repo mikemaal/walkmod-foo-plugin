@@ -70,18 +70,25 @@ public class AddSerializableImplementation extends
 			}
 			
 			String implementToAdd;
+			boolean simpleImplement = true;
 			if(includeImport || includeSimpleImplement){
 				implementToAdd = "Serializable";
 			}
 			else {
 				implementToAdd = "java.io.Serializable";
+				simpleImplement = false;
 			}
 			
 			boolean find = false;
 			Iterator<ClassOrInterfaceType> it = implementsList.iterator();
 			while(it.hasNext() && !find){
 				ClassOrInterfaceType coi = it.next();
-				if(coi.toString().equals("java.io.Serializable")){
+				if(simpleImplement){
+					if(coi.toString().equals(implementToAdd)||coi.toString().equals("java.io.Serializable")){
+						find = true;
+					}
+				}
+				else if(coi.toString().equals("java.io.Serializable")){
 					find = true;
 				}
 			}
