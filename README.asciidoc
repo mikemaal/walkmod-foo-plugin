@@ -1,6 +1,5 @@
 walkmod-serializable-plugin
-==================
-Miguel Angel Aguila <maguila@ac.upc.edu>
+===========================
 
 This project is a plugin to add the serializable implementation in all java classes using http://www.walkmod.com[walkmod] plugin. 
 
