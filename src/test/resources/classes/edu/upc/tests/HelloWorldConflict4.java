@@ -1,6 +1,8 @@
-package edu.upc.dama.walkmod.tests;
+package edu.upc.tests;
 
-public class HelloWorld {
+import edu.upc.Serializable;
+
+public class HelloWorldConflict4 {
 
     public static void main(String[] args) {
         System.out.println("Hello, World");

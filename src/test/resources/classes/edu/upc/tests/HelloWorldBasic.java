@@ -1,6 +1,6 @@
-package edu.upc.dama.walkmod.tests;
+package edu.upc.tests;
 
-public class HelloWorld implements java.io.Serializable {
+public class HelloWorldBasic {
 
     public static void main(String[] args) {
         System.out.println("Hello, World");

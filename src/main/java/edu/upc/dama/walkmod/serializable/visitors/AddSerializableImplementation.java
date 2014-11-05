@@ -24,6 +24,7 @@ import org.walkmod.javalang.ast.ImportDeclaration;
 import org.walkmod.javalang.ast.body.ClassOrInterfaceDeclaration;
 import org.walkmod.javalang.ast.expr.NameExpr;
 import org.walkmod.javalang.ast.type.ClassOrInterfaceType;
+import org.walkmod.javalang.compiler.TypeTable;
 import org.walkmod.javalang.visitors.VisitorSupport;
 import org.walkmod.walkers.VisitorContext;
 
@@ -34,33 +35,24 @@ public class AddSerializableImplementation extends
 	private boolean includeSimpleImplement = true;
 	
 	private CompilationUnit cuPrivate = null;
+	private ClassLoader classLoader;
+	private TypeTable<VisitorContext> tt;
 
 	@Override
 	public void visit(CompilationUnit cu, VisitorContext ctx) {
 		cuPrivate = cu;
+		tt = new TypeTable<VisitorContext>();
+		tt.setClassLoader(classLoader);
+		tt.visit(cu, ctx);		
 		super.visit(cu, ctx);
+	}
+	
+	public void setClassLoader(ClassLoader classLoader) {
+		this.classLoader = classLoader;
 	}
 
 	public void visit(ClassOrInterfaceDeclaration type, VisitorContext ctx) {
 		if (!type.isInterface()) {
-			
-			//import
-			List<ImportDeclaration> imports = cuPrivate.getImports();
-			ImportDeclaration id = new ImportDeclaration(new NameExpr(
-					"java.io.Serializable"), false, false);
-			if (imports == null) {
-				imports = new LinkedList<ImportDeclaration>();
-				cuPrivate.setImports(imports);
-			} else {
-				Iterator<ImportDeclaration> it = imports.iterator();
-				while (it.hasNext() && includeImport) {
-					ImportDeclaration importD = it.next();
-					if(importD.getName().getName().equals("Serializable")){
-						includeSimpleImplement = importD.getName().toString().equals("java.io.Serializable");
-						includeImport = false;
-					}
-				}
-			}
 			
 			//implements
 			List<ClassOrInterfaceType> implementsList = type.getImplements();
@@ -69,32 +61,43 @@ public class AddSerializableImplementation extends
 				type.setImplements(implementsList);
 			}
 			
-			String implementToAdd;
-			boolean simpleImplement = true;
-			if(includeImport || includeSimpleImplement){
-				implementToAdd = "Serializable";
-			}
-			else {
-				implementToAdd = "java.io.Serializable";
-				simpleImplement = false;
-			}
-			
 			boolean find = false;
 			Iterator<ClassOrInterfaceType> it = implementsList.iterator();
 			while(it.hasNext() && !find){
 				ClassOrInterfaceType coi = it.next();
-				if(simpleImplement){
-					if(coi.toString().equals(implementToAdd)||coi.toString().equals("java.io.Serializable")){
-						find = true;
+				String fullName = tt.getFullName(coi);
+				find = fullName.equals("java.io.Serializable");
+			}
+				
+			if(!find){
+				
+				//import
+				Object objectImport = tt.getTypeTable().get("Serializable");
+				if(objectImport != null){
+					includeImport = false;
+					String classImport = objectImport.toString();
+					if(!classImport.equals("java.io.Serializable")){
+						includeSimpleImplement = false;
 					}
 				}
-				else if(coi.toString().equals("java.io.Serializable")){
-					find = true;
+				
+				String implementToAdd;
+				if(includeImport || includeSimpleImplement){
+					implementToAdd = "Serializable";
 				}
-			}
-			if(!find){
+				else {
+					implementToAdd = "java.io.Serializable";
+				}
+				
 				implementsList.add(new ClassOrInterfaceType(implementToAdd));
 				if(includeImport) {
+					List<ImportDeclaration> imports = cuPrivate.getImports();
+					if (imports == null) {
+						imports = new LinkedList<ImportDeclaration>();
+						cuPrivate.setImports(imports);
+					}
+					ImportDeclaration id = new ImportDeclaration(new NameExpr(
+							"java.io.Serializable"), false, false);
 					imports.add(id);
 				}
 			}
