@@ -66,7 +66,12 @@ public class AddSerializableImplementation extends
 			while(it.hasNext() && !find){
 				ClassOrInterfaceType coi = it.next();
 				String fullName = tt.getFullName(coi);
-				find = fullName.equals("java.io.Serializable");
+				if(fullName!=null){
+					find = fullName.equals("java.io.Serializable");
+				}
+				else if(coi.toString().equals("java.io.Serializable")){
+					find = true;
+				}
 			}
 				
 			if(!find){

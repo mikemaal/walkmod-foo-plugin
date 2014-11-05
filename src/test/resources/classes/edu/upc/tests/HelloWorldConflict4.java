@@ -1,6 +1,6 @@
 package edu.upc.tests;
 
-import edu.upc.Serializable;
+import edu.upc.temp.Serializable;
 
 public class HelloWorldConflict4 {
 

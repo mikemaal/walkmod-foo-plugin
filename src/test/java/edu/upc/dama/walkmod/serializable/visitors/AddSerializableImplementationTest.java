@@ -25,9 +25,10 @@ import org.walkmod.walkers.VisitorContext;
 
 import edu.upc.dama.walkmod.serializable.visitors.AddSerializableImplementation;
 
+@SuppressWarnings("restriction")
 public class AddSerializableImplementationTest {
 	
-	private static String COMPILATION_DIR = "./src/test/resources/classes";
+	private static String COMPILATION_DIR = "./target/classes";
 
 	@Test
 	public void testParsing() throws Exception {
@@ -56,6 +57,7 @@ public class AddSerializableImplementationTest {
 			assertEquals(implementsName,"Serializable");
 		}
 		
+		visitor = new AddSerializableImplementation();
 		f = new File("src/test/resources/classes/edu/upc/tests/HelloWorldConflict1.java");
 		if (compile(f)) {
 			File aux = new File(COMPILATION_DIR);
@@ -66,7 +68,7 @@ public class AddSerializableImplementationTest {
 			CompilationUnit cu = ASTManager.parse(f);
 			Assert.assertNotNull(cu);
 			
-			visitor = new AddSerializableImplementation();
+			
 			visitor.visit(cu, new VisitorContext());
 			
 			int numImports = cu.getImports().size();
@@ -77,96 +79,106 @@ public class AddSerializableImplementationTest {
 			assertEquals(implementsName,"java.io.Serializable");
 		}
 		
-		/*f = new File("src/test/resources/sourceConflict2Example.txt");
-		cu = ASTManager.parse(f);
-		Assert.assertNotNull(cu);
-		
 		visitor = new AddSerializableImplementation();
-		visitor.visit(cu, new VisitorContext());
+		f = new File("src/test/resources/classes/edu/upc/tests/HelloWorldConflict2.java");
+		if (compile(f)) {
+			File aux = new File(COMPILATION_DIR);
+			ClassLoader cl = new URLClassLoader(new URL[] { aux.toURI()
+					.toURL() });
+			visitor.setClassLoader(cl);
 		
-		numImports = cu.getImports().size();
-		assertEquals(numImports,1);
-		
-		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
-		int numImplements = type.getImplements().size();
-		assertEquals(numImplements,1);
-		
-		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
-		ClassOrInterfaceType coi = type.getImplements().get(0);
-		assertEquals(coi.toString(),"java.io.Serializable");
+			CompilationUnit cu = ASTManager.parse(f);
+			Assert.assertNotNull(cu);
+			
+			visitor.visit(cu, new VisitorContext());
+			
+			int numImports = cu.getImports().size();
+			assertEquals(numImports,1);
+			
+			ClassOrInterfaceDeclaration type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
+			int numImplements = type.getImplements().size();
+			assertEquals(numImplements,1);
+			
+			type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
+			ClassOrInterfaceType coi = type.getImplements().get(0);
+			assertEquals(coi.toString(),"java.io.Serializable");
+		}
 		
 
-		f = new File("src/test/resources/sourceConflict3Example.txt");
-		cu = ASTManager.parse(f);
-		Assert.assertNotNull(cu);
+		visitor = new AddSerializableImplementation();
+		f = new File("src/test/resources/classes/edu/upc/tests/HelloWorldConflict3.java");
+		if (compile(f)) {
+			File aux = new File(COMPILATION_DIR);
+			ClassLoader cl = new URLClassLoader(new URL[] { aux.toURI()
+					.toURL() });
+			visitor.setClassLoader(cl);
+		
+			CompilationUnit cu = ASTManager.parse(f);
+			Assert.assertNotNull(cu);
+			
+			visitor.visit(cu, new VisitorContext());
+			
+			assertEquals(cu.getImports(),null);
+			
+			ClassOrInterfaceDeclaration type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
+			int numImplements = type.getImplements().size();
+			assertEquals(numImplements,1);
+			
+			type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
+			ClassOrInterfaceType coi = type.getImplements().get(0);
+			assertEquals(coi.toString(),"java.io.Serializable");
+		}
+		
 		
 		visitor = new AddSerializableImplementation();
-		visitor.visit(cu, new VisitorContext());
+		f = new File("src/test/resources/classes/edu/upc/tests/HelloWorldConflict4.java");
+		if (compile(f)) {
+			File aux = new File(COMPILATION_DIR);
+			ClassLoader cl = new URLClassLoader(new URL[] { aux.toURI()
+					.toURL() });
+			visitor.setClassLoader(cl);
 		
-		numImports = cu.getImports().size();
-		assertEquals(numImports,0);
-		
-		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
-		numImplements = type.getImplements().size();
-		assertEquals(numImplements,1);
-		
-		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
-		coi = type.getImplements().get(0);
-		assertEquals(coi.toString(),"java.io.Serializable");
-		
-		f = new File("src/test/resources/sourceConflict4Example.txt");
-		cu = ASTManager.parse(f);
-		Assert.assertNotNull(cu);
-		
-		visitor = new AddSerializableImplementation();
-		visitor.visit(cu, new VisitorContext());
-		
-		numImports = cu.getImports().size();
-		assertEquals(numImports,1);
-		
-		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
-		numImplements = type.getImplements().size();
-		assertEquals(numImplements,1);
-		
-		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
-		coi = type.getImplements().get(0);
-		assertEquals(coi.toString(),"java.io.Serializable");
-		
-		f = new File("src/test/resources/sourceConflict5Example.txt");
-		cu = ASTManager.parse(f);
-		Assert.assertNotNull(cu);
+			CompilationUnit cu = ASTManager.parse(f);
+			Assert.assertNotNull(cu);
+			
+			visitor.visit(cu, new VisitorContext());
+			
+			int numImports = cu.getImports().size();
+			assertEquals(numImports,1);
+			
+			ClassOrInterfaceDeclaration type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
+			int numImplements = type.getImplements().size();
+			assertEquals(numImplements,1);
+			
+			type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
+			ClassOrInterfaceType coi = type.getImplements().get(0);
+			assertEquals(coi.toString(),"java.io.Serializable");
+		}
 		
 		visitor = new AddSerializableImplementation();
-		visitor.visit(cu, new VisitorContext());
+		f = new File("src/test/resources/classes/edu/upc/tests/HelloWorldConflict5.java");
+		if (compile(f)) {
+			File aux = new File(COMPILATION_DIR);
+			ClassLoader cl = new URLClassLoader(new URL[] { aux.toURI()
+					.toURL() });
+			visitor.setClassLoader(cl);
 		
-		numImports = cu.getImports().size();
-		assertEquals(numImports,1);
+			CompilationUnit cu = ASTManager.parse(f);
+			Assert.assertNotNull(cu);
+			
+			visitor.visit(cu, new VisitorContext());
 		
-		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
-		numImplements = type.getImplements().size();
-		assertEquals(numImplements,1);
-		
-		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
-		coi = type.getImplements().get(0);
-		assertEquals(coi.toString(),"Serializable");
-		
-		f = new File("src/test/resources/sourceConflict6Example.txt");
-		cu = ASTManager.parse(f);
-		Assert.assertNotNull(cu);
-
-		visitor = new AddSerializableImplementation();
-		visitor.visit(cu, new VisitorContext());
-		
-		numImports = cu.getImports().size();
-		assertEquals(numImports,5);
-		
-		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
-		numImplements = type.getImplements().size();
-		assertEquals(numImplements,2);
-		
-		type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
-		coi = type.getImplements().get(1);
-		assertEquals(coi.toString(),"Serializable");*/
+			int numImports = cu.getImports().size();
+			assertEquals(numImports,1);
+			
+			ClassOrInterfaceDeclaration type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
+			int numImplements = type.getImplements().size();
+			assertEquals(numImplements,1);
+			
+			type = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
+			ClassOrInterfaceType coi = type.getImplements().get(0);
+			assertEquals(coi.toString(),"Serializable");
+		}
 		
 	}
 		
