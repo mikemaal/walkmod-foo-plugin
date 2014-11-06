@@ -35,9 +35,9 @@ public class AddSerializableImplementationTest {
 		
 		AddSerializableImplementation visitor = new AddSerializableImplementation();
 		
-		
+		File serializable = new File("src/test/resources/classes/edu/upc/temp/Serializable.java");
 		File f = new File("src/test/resources/classes/edu/upc/tests/HelloWorldBasic.java");
-		if (compile(f)) {
+		if (compile(f, serializable)) {
 			File aux = new File(COMPILATION_DIR);
 			ClassLoader cl = new URLClassLoader(new URL[] { aux.toURI()
 					.toURL() });
@@ -59,7 +59,7 @@ public class AddSerializableImplementationTest {
 		
 		visitor = new AddSerializableImplementation();
 		f = new File("src/test/resources/classes/edu/upc/tests/HelloWorldConflict1.java");
-		if (compile(f)) {
+		if (compile(f, serializable)) {
 			File aux = new File(COMPILATION_DIR);
 			ClassLoader cl = new URLClassLoader(new URL[] { aux.toURI()
 					.toURL() });
@@ -81,7 +81,7 @@ public class AddSerializableImplementationTest {
 		
 		visitor = new AddSerializableImplementation();
 		f = new File("src/test/resources/classes/edu/upc/tests/HelloWorldConflict2.java");
-		if (compile(f)) {
+		if (compile(f, serializable)) {
 			File aux = new File(COMPILATION_DIR);
 			ClassLoader cl = new URLClassLoader(new URL[] { aux.toURI()
 					.toURL() });
@@ -107,7 +107,7 @@ public class AddSerializableImplementationTest {
 
 		visitor = new AddSerializableImplementation();
 		f = new File("src/test/resources/classes/edu/upc/tests/HelloWorldConflict3.java");
-		if (compile(f)) {
+		if (compile(f, serializable)) {
 			File aux = new File(COMPILATION_DIR);
 			ClassLoader cl = new URLClassLoader(new URL[] { aux.toURI()
 					.toURL() });
@@ -132,7 +132,7 @@ public class AddSerializableImplementationTest {
 		
 		visitor = new AddSerializableImplementation();
 		f = new File("src/test/resources/classes/edu/upc/tests/HelloWorldConflict4.java");
-		if (compile(f)) {
+		if (compile(f, serializable)) {
 			File aux = new File(COMPILATION_DIR);
 			ClassLoader cl = new URLClassLoader(new URL[] { aux.toURI()
 					.toURL() });
@@ -157,7 +157,7 @@ public class AddSerializableImplementationTest {
 		
 		visitor = new AddSerializableImplementation();
 		f = new File("src/test/resources/classes/edu/upc/tests/HelloWorldConflict5.java");
-		if (compile(f)) {
+		if (compile(f, serializable)) {
 			File aux = new File(COMPILATION_DIR);
 			ClassLoader cl = new URLClassLoader(new URL[] { aux.toURI()
 					.toURL() });
