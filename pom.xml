@@ -40,6 +40,26 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<id>default-tools.jar</id>
+			<activation>
+				<property>
+					<name>java.vendor</name>
+					<value>Sun Microsystems Inc.</value>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.sun</groupId>
+					<artifactId>tools</artifactId>
+					<version>1.4.2</version>
+					<scope>system</scope>
+					<systemPath>${java.home}/../lib/tools.jar</systemPath>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 	<build>
 		<plugins>
 			<plugin>
@@ -77,4 +97,24 @@
 			</plugin>
 		</plugins>
 	</build>
+	<developers>
+		<developer>
+			<id>maguila</id>
+			<name>maguila</name>
+			<email>mike.aguila.lorente@gmail.com</email>
+		</developer>
+		<developer>
+			<id>rpau</id>
+			<name>rpau</name>
+			<email>raquelpau@gmail.com</email>
+		</developer>
+
+	</developers>
+	<description>This project is a plugin to add the serializable implementation in all java classes using walkmod. </description>
+	<name>walkmod-serializable-plugin</name>
+	<url>https://github.com/mikemaal/walkmod-serializable-plugin</url>
+	<scm>
+		<url>https://github.com/mikemaal/walkmod-serializable-plugin.git</url>
+		<connection>https://github.com/mikemaal/walkmod-serializable-plugin.git</connection>
+	</scm>
 </project>
