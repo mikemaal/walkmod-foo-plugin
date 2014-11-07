@@ -31,9 +31,9 @@ import org.walkmod.walkers.VisitorContext;
 public class AddSerializableImplementation extends
 		VisitorSupport<VisitorContext> {
 
-	private boolean includeImport = true;
-	private boolean includeSimpleImplement = true;
-	
+	private boolean includeImport;
+	private boolean includeSimpleImplement;
+
 	private CompilationUnit cuPrivate = null;
 	private ClassLoader classLoader;
 	private TypeTable<VisitorContext> tt;
@@ -43,59 +43,59 @@ public class AddSerializableImplementation extends
 		cuPrivate = cu;
 		tt = new TypeTable<VisitorContext>();
 		tt.setClassLoader(classLoader);
-		tt.visit(cu, ctx);		
+		tt.visit(cu, ctx);
+		includeImport = true;
+
 		super.visit(cu, ctx);
 	}
-	
+
 	public void setClassLoader(ClassLoader classLoader) {
 		this.classLoader = classLoader;
 	}
 
 	public void visit(ClassOrInterfaceDeclaration type, VisitorContext ctx) {
 		if (!type.isInterface()) {
-			
-			//implements
+			includeSimpleImplement = true;
+			// implements
 			List<ClassOrInterfaceType> implementsList = type.getImplements();
 			if (implementsList == null) {
 				implementsList = new LinkedList<ClassOrInterfaceType>();
 				type.setImplements(implementsList);
 			}
-			
+
 			boolean find = false;
 			Iterator<ClassOrInterfaceType> it = implementsList.iterator();
-			while(it.hasNext() && !find){
+			while (it.hasNext() && !find) {
 				ClassOrInterfaceType coi = it.next();
 				String fullName = tt.getFullName(coi);
-				if(fullName!=null){
+				if (fullName != null) {
 					find = fullName.equals("java.io.Serializable");
-				}
-				else if(coi.toString().equals("java.io.Serializable")){
+				} else if (coi.toString().equals("java.io.Serializable")) {
 					find = true;
 				}
 			}
-				
-			if(!find){
-				
-				//import
+
+			if (!find) {
+
+				// import
 				Object objectImport = tt.getTypeTable().get("Serializable");
-				if(objectImport != null){
+				if (objectImport != null) {
 					includeImport = false;
 					String classImport = objectImport.toString();
-					if(!classImport.equals("java.io.Serializable")){
+					if (!classImport.equals("java.io.Serializable")) {
 						includeSimpleImplement = false;
 					}
 				}
-				
+
 				String implementToAdd;
-				if(includeImport || includeSimpleImplement){
+				if (includeImport || includeSimpleImplement) {
 					implementToAdd = "Serializable";
-				}
-				else {
+				} else {
 					implementToAdd = "java.io.Serializable";
 				}
-				
+
 				implementsList.add(new ClassOrInterfaceType(implementToAdd));
-				if(includeImport) {
+				if (includeImport) {
 					List<ImportDeclaration> imports = cuPrivate.getImports();
 					if (imports == null) {
 						imports = new LinkedList<ImportDeclaration>();
