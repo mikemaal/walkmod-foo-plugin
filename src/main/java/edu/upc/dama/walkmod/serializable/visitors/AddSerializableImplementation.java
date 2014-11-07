@@ -107,6 +107,7 @@ public class AddSerializableImplementation extends
 				}
 			}
 		}
+		super.visit(type, ctx);
 	}
 
 }
